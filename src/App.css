@@ -10,6 +10,8 @@
   width:206px;
   border:solid 1px #999;
   overflow: auto;
+  background-color: #fff;
+  z-index: 999;
 }
 .row:hover{
   background-color: #e5e5e5;
@@ -17,4 +19,7 @@
 }
 .report-section{
   margin: 10px;
+}
+.main-container{
+  position: relative;
 }

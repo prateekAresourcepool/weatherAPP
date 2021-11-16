@@ -9,6 +9,11 @@ export default class App extends Component {
       cities: [],
       weatherData: {},
       isLoading: false,
+      rooms: [
+        { room_type: "Queen", vacant_rooms: 5, price: 100 },
+        { room_type: "Double", vacant_rooms: 3, price: 75 },
+        { room_type: "Twin", vacant_rooms: 8, price: 60 },
+      ],
     };
   }
 
@@ -44,10 +49,77 @@ export default class App extends Component {
       });
   };
 
+  answer1 = (rooms) => {
+    return (
+      <ol>
+        {rooms.map((item, index) => {
+          return (
+            <li>
+              {item.room_type},{item.vacant_rooms}, ${item.price}{" "}
+            </li>
+          );
+        })}
+      </ol>
+    );
+  };
+
+  answer2 = (num) => {
+    if (num % 2 == 0 && num % 7 == 0) {
+      console.log("foobar");
+      return "foobar";
+    } else if (num % 7 == 0) {
+      console.log("bar");
+      return "bar";
+    } else if (num % 2 == 0) {
+      console.log("foo");
+      return "foo";
+    } else {
+      console.log(num);
+      return num;
+    }
+  };
+
+  answer4 = (province) => {
+    const ONTARIO_RATE = 100,
+      QUEBEC_RATE = 200,
+      ALBERTA_RATE = 300;
+    let rate = 0,
+      points = 0,
+      amt = 0,
+      base = 10,
+      calc = 0;
+    const basis = (amt) => {
+      return amt;
+    };
+    const extra = (amt) => {
+      return amt;
+    };
+    switch (province) {
+      case "ONTARIO":
+        rate = ONTARIO_RATE;
+        break;
+      case "QUEBEC":
+        rate = QUEBEC_RATE;
+        points = 2;
+        break;
+      case "ALBERTA":
+        rate = ALBERTA_RATE;
+        break;
+      default:
+        rate = 1;
+    }
+    amt = base * rate;
+    calc = 2 * basis(amt) + extra(amt) * 1.05;
+  };
+
   render() {
     return (
-      <div>
+      <div>        
         <div>
+        <h3>Ans-5.</h3>
+        <p>APIs have CORS issue, so please disable cors in chrome...</p>
+        <p>Type san or lon in the textbox and click on search, this will get the data with search param from API and list it in below the textbox.. from where you can select one of them to get the whole weather report</p>
+        <div className="main-container">
           <input
             type="text"
             value={this.state.city}
@@ -56,8 +128,7 @@ export default class App extends Component {
             placeholder="Search here..."
           />
           <button onClick={this.search}>Search</button>
-        </div>
-        {this.state.cities.length > 0 && (
+          {this.state.cities.length > 0 && (
           <div className="suggestion-list">
             {this.state.cities.map((item, index) => {
               return (
@@ -73,8 +144,9 @@ export default class App extends Component {
             {this.state.isLoading && <h3>Loading data...</h3>}
           </div>
         )}
+          </div>         
         {!this.state.isLoading &&
-          this.state.cities.length <=0 && 
+          this.state.cities.length <= 0 &&
           this.state.weatherData.consolidated_weather &&
           this.state.weatherData.consolidated_weather.length > 0 && (
             <div className="report-section">
@@ -119,6 +191,25 @@ export default class App extends Component {
             <h2>Loading Data...</h2>
           </div>
         )}
+        </div>        
+        <div>
+          <h3>Ans-1.</h3>
+          {this.answer1(this.state.rooms)}
+          <h3>Ans-2.</h3>
+          <p>When Number is 2 - Output:{this.answer2(2)}</p>
+          <p>When Number is 7 - Output:{this.answer2(7)}</p>
+          <p>When Number is 14 - Output:{this.answer2(14)}</p>
+          <p>When Number is 5 - Output:{this.answer2(5)}</p>
+          <h3>Ans-3.</h3>
+          <p>
+            For Ans 3, please run answer3.js file from the same directory.
+            <br />
+            Run command:node answer3 from src folder
+          </p>
+          <h3>Ans-4.</h3>
+          <p>See fucntion answer4() in code</p>
+          {this.answer4("ONTARIO")}
+        </div>
       </div>
     );
   }

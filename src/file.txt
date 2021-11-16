@@ -1,0 +1,5 @@
+id,name,value
+1,Dan,150
+2,Peter,300
+3,Mark,400
+4,Victor,600
